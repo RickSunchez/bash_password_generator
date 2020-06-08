@@ -1,0 +1,91 @@
+#!/bin/bash
+
+generate(){
+	declare -A alphabet
+	alphabet=([A]="ABCDEFGHIJKLMNOPQRSTUVWXYZ" [a]="abcdefghijklmnopqrstuvwxyz" [d]="0123456789" [s]="\`~!@#\$%^&*()_-+=}{[]|:;\"'\\<>,.?/")
+
+	PWD_LEN=$1
+	PASSWORD=""
+	FROM=$2
+	range=${#FROM}
+
+	for ((i=0;i<$PWD_LEN;i++))
+	do
+		alp_num=$RANDOM
+		let "alp_num %= range"
+		alp_sym=${FROM:$alp_num:1}
+
+		cur_alp=${alphabet[$alp_sym]}
+		cua_len=${#cur_alp}
+
+		chr_num=$RANDOM
+		let "chr_num %= $cua_len"
+
+		chr=${cur_alp:$chr_num:1}
+
+		PASSWORD=$PASSWORD$chr
+	done
+
+	echo $PASSWORD
+}
+
+help(){
+	echo "options:"
+	echo "  -l - password length"
+	echo "  -u - user login 	  *under construction"
+	echo "  -s - service    	  *under construction"
+	echo "  -t - password type:"
+	echo "     d - only digit"
+	echo "     a - alphabet"
+	echo "     A - ALPHABET"
+	echo "     s - other symbols"
+	echo 
+	echo "default:"
+	echo "  -l: 16"
+	echo "  -t: daAs"
+	echo "  -u: NONE"
+	echo "  -s: NONE"
+}
+
+if [[ -z "$1" ]]
+then
+	generate 16 "daAs"
+	exit 1
+fi 
+
+al="daAs"
+ln=16
+
+while [ -n "$1" ]
+do
+	case "$1" in
+		-l) ln=$2 && shift;;
+		-u) echo $2 && shift;;
+		-s) echo $2 && shift;;
+		-t) al=$2 && shift;;
+		-h | --help) help && exit 1;;
+		*) echo "$1: unknown option";;
+	esac
+	shift
+done
+
+if [[ "${#al}" < 5 ]]
+then
+	len_al=${#al}
+	sample="daAs"
+	for ((i=0;i<$len_al;i++))
+	do
+		ch_al=${al:$i:1}
+
+		if [[ "$sample" != *"$ch_al"* ]]
+		then
+			echo "-t: unknown options"
+			exit 1
+		fi
+	done
+else
+	echo "-t: unknown options"
+	exit 1
+fi
+
+generate "$ln" "$al"
