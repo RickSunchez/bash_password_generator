@@ -1,23 +1,25 @@
 ## Simple bash passwords generator
 
-Put code into /usr/local/bin/:
+# Download code and put code into /usr/local/bin/:
 ``` sh
-	cp ./pass /usr/local/bin/
+cp ./pass /usr/local/bin/
+# or
+mv ./pass /usr/local/bin/
 ```
-
 or create a symbolic link:
 ``` sh
-	ln -s ./pass /usr/local/bin/pass
+ln -s ./pass /usr/local/bin/pass
 ```
 
-Clone this git into /usr/local/bin/:
+# Or clone this git into /usr/local/bin/:
 ``` sh
-	cd /usr/local/bin/
-	git clone 
+cd /usr/local/bin/
+git clone https://github.com/RickSunchez/bash_password_generator.git ./
 ```
-
 
 # Examples:
+Default:
 ``` sh
-
+ex@exmple:~$ pass
+;<Au^($2fjVWYBme
 ```
