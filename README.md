@@ -2,12 +2,13 @@
 
 # Download code and put code into /usr/local/bin/:
 ``` sh
+git clone https://github.com/RickSunchez/bash_password_generator.git
+cd ./bash_password_generator
+# copy
 cp ./pass /usr/local/bin/
-# or
+# or move
 mv ./pass /usr/local/bin/
-```
-or create a symbolic link:
-``` sh
+# or create symbolic link
 ln -s ./pass /usr/local/bin/pass
 ```
 
